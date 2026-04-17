@@ -1,0 +1,16 @@
+<Window x:Class="BorromeoWPF.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:BorromeoWPF.ViewModels"
+        xmlns:views="clr-namespace:BorromeoWPF.Views"
+        Title="Borromeo" Height="600" Width="900">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:HomeViewModel}">
+            <views:HomeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TshirtViewModel}">
+            <views:TshirtView />
+        </DataTemplate>
+    </Window.Resources>
+    <ContentControl Content="{Binding CurrentViewModel}" />
+</Window>

@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Borromeo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AB63CDBE-F71C-4810-A7F9-C05DEC79E24B}|BorromeoBlazorWebApp\\BorromeoBlazorWebApp.csproj|d:\\borromeo\\borromeoblazorwebapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB63CDBE-F71C-4810-A7F9-C05DEC79E24B}|BorromeoBlazorWebApp\\BorromeoBlazorWebApp.csproj|solutionrelative:borromeoblazorwebapp\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB63CDBE-F71C-4810-A7F9-C05DEC79E24B}|BorromeoBlazorWebApp\\BorromeoBlazorWebApp.csproj|d:\\borromeo\\borromeoblazorwebapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{AB63CDBE-F71C-4810-A7F9-C05DEC79E24B}|BorromeoBlazorWebApp\\BorromeoBlazorWebApp.csproj|solutionrelative:borromeoblazorwebapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{44444444-4444-4444-4444-444444444444}|BorromeoWPF\\BorromeoWPF.csproj|d:\\borromeo\\borromeowpf\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{44444444-4444-4444-4444-444444444444}|BorromeoWPF\\BorromeoWPF.csproj|solutionrelative:borromeowpf\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "D:\\Borromeo\\BorromeoBlazorWebApp\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "BorromeoBlazorWebApp\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "D:\\Borromeo\\BorromeoBlazorWebApp\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "BorromeoBlazorWebApp\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAABMAAAAAAAAAAAAmwB8AAABnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T15:13:50.413Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Borromeo\\BorromeoBlazorWebApp\\appsettings.json",
+              "RelativeDocumentMoniker": "BorromeoBlazorWebApp\\appsettings.json",
+              "ToolTip": "D:\\Borromeo\\BorromeoBlazorWebApp\\appsettings.json",
+              "RelativeToolTip": "BorromeoBlazorWebApp\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAACAQAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-09T15:12:31.34Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Borromeo\\BorromeoWPF\\appsettings.json",
+              "RelativeDocumentMoniker": "BorromeoWPF\\appsettings.json",
+              "ToolTip": "D:\\Borromeo\\BorromeoWPF\\appsettings.json",
+              "RelativeToolTip": "BorromeoWPF\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-09T14:47:20.468Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

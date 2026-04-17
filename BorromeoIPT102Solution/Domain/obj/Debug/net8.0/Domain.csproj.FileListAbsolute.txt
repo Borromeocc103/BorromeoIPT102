@@ -1,0 +1,11 @@
+D:\Borromeo\Domain\bin\Debug\net8.0\Domain.deps.json
+D:\Borromeo\Domain\bin\Debug\net8.0\Domain.dll
+D:\Borromeo\Domain\bin\Debug\net8.0\Domain.pdb
+D:\Borromeo\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Borromeo\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+D:\Borromeo\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+D:\Borromeo\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+D:\Borromeo\Domain\obj\Debug\net8.0\Domain.dll
+D:\Borromeo\Domain\obj\Debug\net8.0\refint\Domain.dll
+D:\Borromeo\Domain\obj\Debug\net8.0\Domain.pdb
+D:\Borromeo\Domain\obj\Debug\net8.0\ref\Domain.dll

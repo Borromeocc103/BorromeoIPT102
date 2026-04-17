@@ -1,0 +1,134 @@
+@page "/tshirts"
+@using Domain.Interfaces
+@using Domain.Models
+@inject IGetTshirtAll GetAll
+@inject ICreateCommand Create
+@inject IUpdateCommand Update
+@inject IDeleteCommand Delete
+@rendermode InteractiveServer
+
+<PageTitle>T-Shirt Management</PageTitle>
+
+<h3>T-Shirt Management</h3>
+
+<div class="mb-3 d-flex gap-2 align-items-center">
+    <input class="form-control w-25" placeholder="Search by name or brand..."
+           value="@searchTerm"
+           @oninput="e => searchTerm = e.Value?.ToString() ?? string.Empty" />
+    <button class="btn btn-primary" @onclick="OpenAddForm">+ Add T-Shirt</button>
+</div>
+
+@if (showForm)
+{
+    <div class="card mb-4 p-3" style="max-width:480px">
+        <h5>@(editModel.TshirtId == 0 ? "Add" : "Edit") T-Shirt</h5>
+        <EditForm Model="editModel" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+            <div class="mb-2">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="editModel.Name" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Quantity</label>
+                <InputNumber class="form-control" @bind-Value="editModel.Quantity" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Price</label>
+                <InputNumber class="form-control" @bind-Value="editModel.Price" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Brand</label>
+                <InputText class="form-control" @bind-Value="editModel.Brand" />
+            </div>
+            <div class="d-flex gap-2 mt-3">
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-secondary" @onclick="CancelForm">Cancel</button>
+            </div>
+        </EditForm>
+    </div>
+}
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Brand</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Filtered)
+        {
+            <tr>
+                <td>@item.TshirtId</td>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price.ToString("C")</td>
+                <td>@item.Brand</td>
+                <td>
+                    <button class="btn btn-sm btn-warning me-1" @onclick="() => OpenEditForm(item)">Edit</button>
+                    <button class="btn btn-sm btn-danger" @onclick="() => HandleDelete(item.TshirtId)">Delete</button>
+                </td>
+            </tr>
+        }
+        @if (!Filtered.Any())
+        {
+            <tr><td colspan="6" class="text-center text-muted">No records found.</td></tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Tshirt> tshirts = new();
+    private Tshirt editModel = new();
+    private bool showForm;
+    private string searchTerm = string.Empty;
+
+    private IEnumerable<Tshirt> Filtered => string.IsNullOrWhiteSpace(searchTerm)
+        ? tshirts
+        : tshirts.Where(t =>
+            t.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+            t.Brand.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+    protected override async Task OnInitializedAsync() => await LoadData();
+
+    private async Task LoadData() =>
+        tshirts = (await GetAll.GetAllAsync()).ToList();
+
+    private void OpenAddForm() { editModel = new Tshirt(); showForm = true; }
+
+    private void OpenEditForm(Tshirt t)
+    {
+        editModel = new Tshirt
+        {
+            TshirtId = t.TshirtId,
+            Name = t.Name,
+            Quantity = t.Quantity,
+            Price = t.Price,
+            Brand = t.Brand
+        };
+        showForm = true;
+    }
+
+    private void CancelForm() => showForm = false;
+
+    private async Task HandleSubmit()
+    {
+        if (editModel.TshirtId == 0)
+            await Create.CreateAsync(editModel);
+        else
+            await Update.UpdateAsync(editModel);
+
+        showForm = false;
+        await LoadData();
+    }
+
+    private async Task HandleDelete(int id)
+    {
+        await Delete.DeleteAsync(id);
+        await LoadData();
+    }
+}
