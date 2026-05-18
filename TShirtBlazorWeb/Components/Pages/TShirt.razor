@@ -1,0 +1,108 @@
+@page "/TShirt"
+@rendermode InteractiveServer
+@using TShirtModel = Domain.Models.TShirt
+@using Framework.Services
+@inject ITShirtService TShirtService
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<PageTitle>T-Shirt Records — Borromeo</PageTitle>
+
+<!-- Header -->
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+        <h3 class="mb-0" style="border:none; padding:0; text-transform:none; font-size:1.3rem; color:#1E293B;">
+            👕 T-Shirt Records
+        </h3>
+        <p style="color:#94A3B8; font-size:0.85rem; margin:4px 0 0;">Manage all T-shirt entries</p>
+    </div>
+    <div class="d-flex gap-2 flex-wrap align-items-center">
+        <input class="form-control" style="width:220px;" @bind="searchText" placeholder="Search brand, type..." />
+        <button class="btn btn-secondary btn-sm" @onclick="SearchAsync">🔍 Search</button>
+        <button class="btn btn-info btn-sm" @onclick="LoadAsync">↻ Refresh</button>
+        <a class="btn btn-primary btn-sm" href="/add_TShirt">➕ Add Record</a>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(statusMessage))
+{
+    <div class="alert alert-success mb-3">@statusMessage</div>
+}
+
+<!-- Table card -->
+<div style="background:#fff; border:1px solid #E2E8F0; border-radius:14px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+    <table class="table table-sm mb-0">
+        <thead>
+            <tr>
+                <th style="width:60px;">ID</th>
+                <th>Brand</th>
+                <th>Type</th>
+                <th>Design</th>
+                <th>Price</th>
+                <th style="width:140px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!list.Any())
+            {
+                <tr>
+                    <td colspan="6" class="text-center py-5" style="color:#94A3B8;">
+                        No records found.
+                    </td>
+                </tr>
+            }
+            @foreach (var item in list)
+            {
+                <tr>
+                    <td style="color:#94A3B8; font-size:0.85rem;">@item.Id</td>
+                    <td style="font-weight:500;">@item.Brand</td>
+                    <td style="font-weight:500;">@item.Type</td>
+                    <td>
+                        <span style="background:#DBEAFE; color:#1D4ED8; padding:3px 12px; border-radius:20px; font-size:0.8rem; font-weight:600;">
+                            @item.Design
+                        </span>
+                    </td>
+                    <td style="color:#2563EB; font-weight:700;">₱@item.Price?.ToString("N2")</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary me-1" href="@($"/edit_TShirt/{item.Id}")">✏ Edit</a>
+                        <button class="btn btn-sm btn-danger" @onclick="() => ConfirmDelete(item.Id)">🗑</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p class="mt-3" style="color:#94A3B8; font-size:0.82rem;">Total Records: @list.Count</p>
+
+@code {
+    List<TShirtModel> list = new();
+    string searchText = "";
+    string? statusMessage;
+
+    protected override async Task OnInitializedAsync() => await LoadAsync();
+
+    async Task LoadAsync()
+    {
+        list = (await Task.Run(() => TShirtService.GetAll())).ToList();
+        StateHasChanged();
+    }
+
+    async Task SearchAsync()
+    {
+        list = (await Task.Run(() => TShirtService.Search(searchText))).ToList();
+        StateHasChanged();
+    }
+
+    async Task ConfirmDelete(int? id)
+    {
+        if (id == null) return;
+        var ok = await JS.InvokeAsync<bool>("confirm", $"Delete record #{id}?");
+        if (!ok) return;
+        await Task.Run(() => TShirtService.Remove(id.Value));
+        statusMessage = $"Record #{id} deleted.";
+        await LoadAsync();
+    }
+}

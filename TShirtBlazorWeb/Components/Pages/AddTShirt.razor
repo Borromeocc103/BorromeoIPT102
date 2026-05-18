@@ -1,0 +1,104 @@
+@page "/add_TShirt"
+@rendermode InteractiveServer
+@using TShirtModel = Domain.Models.TShirt
+@using Framework.Services
+@inject ITShirtService TShirtService
+@inject NavigationManager Navigation
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<PageTitle>Add Record — Borromeo T-Shirt</PageTitle>
+
+<div class="d-flex justify-content-center mt-3">
+    <div style="width:100%; max-width:520px;">
+
+        <!-- Page title -->
+        <div class="mb-4">
+            <h3 style="border:none; padding:0; text-transform:none; font-size:1.3rem; color:#1E293B;">
+                ➕ Add New Record
+            </h3>
+            <p style="color:#94A3B8; font-size:0.85rem; margin:4px 0 0;">Fill in the details below</p>
+        </div>
+
+        <!-- Card -->
+        <div style="background:#fff; border:1px solid #E2E8F0; border-radius:16px; padding:2rem; box-shadow:0 2px 16px rgba(0,0,0,0.06);">
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger mb-3">@errorMessage</div>
+            }
+
+            <!-- Section label -->
+            <div style="display:flex; align-items:center; margin-bottom:1.25rem;">
+                <div style="width:4px; height:16px; background:#2563EB; border-radius:2px; margin-right:10px;"></div>
+                <span style="font-size:0.75rem; font-weight:700; color:#64748B; letter-spacing:0.06em;">CUSTOMER INFORMATION</span>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-6">
+                    <label>Brand</label>
+                    <InputText class="form-control" @bind-Value="model.Brand" placeholder="e.g. Nike, Adidas" />
+                </div>
+                <div class="col-6">
+                    <label>Type</label>
+                    <InputText class="form-control" @bind-Value="model.Type" placeholder="e.g. Polo, Round Neck" />
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-7">
+                    <label>Design</label>
+                    <InputText class="form-control" @bind-Value="model.Design" placeholder="e.g. Graphic, Plain, Polo" />
+                </div>
+                <div class="col-5">
+                    <label>Price (₱)</label>
+                    <InputNumber class="form-control" @bind-Value="model.Price" placeholder="0.00" />
+                </div>
+            </div>
+
+            <hr style="border-color:#F1F5F9; margin-bottom:1.5rem;" />
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary flex-fill" @onclick="SaveAsync" disabled="@isSaving">
+                    @(isSaving ? "Saving..." : "💾 Save Record")
+                </button>
+                <button class="btn btn-secondary flex-fill" @onclick="Back" disabled="@isSaving">
+                    ← Back
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    TShirtModel model = new();
+    bool isSaving = false;
+    string? errorMessage;
+
+    async Task SaveAsync()
+    {
+        if (string.IsNullOrWhiteSpace(model.Brand) || string.IsNullOrWhiteSpace(model.Type))
+        {
+            errorMessage = "Brand and Type are required.";
+            return;
+        }
+        errorMessage = null;
+        isSaving = true;
+        try
+        {
+            await Task.Run(() => TShirtService.Create(model));
+            Navigation.NavigateTo("/TShirt", true);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Save failed: {ex.Message}";
+        }
+        finally
+        {
+            isSaving = false;
+            StateHasChanged();
+        }
+    }
+
+    void Back() => Navigation.NavigateTo("/TShirt", true);
+}

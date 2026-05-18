@@ -1,0 +1,6 @@
+CREATE PROCEDURE [dbo].[GetAllTShirts]
+AS
+BEGIN
+    SELECT * FROM TShirt
+    ORDER BY Id DESC;
+END
