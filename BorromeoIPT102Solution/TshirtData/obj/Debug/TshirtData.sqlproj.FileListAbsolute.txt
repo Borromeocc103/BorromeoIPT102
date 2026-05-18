@@ -1,6 +1,0 @@
-D:\Borromeo\TshirtData\bin\Debug\TshirtData.dacpac
-D:\Borromeo\TshirtData\bin\Debug\TshirtData.dll
-D:\Borromeo\TshirtData\bin\Debug\TshirtData.pdb
-D:\Borromeo\TshirtData\obj\Debug\TshirtData.sqlproj.AssemblyReference.cache
-D:\Borromeo\TshirtData\obj\Debug\TshirtData.dll
-D:\Borromeo\TshirtData\obj\Debug\TshirtData.pdb
